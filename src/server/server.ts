@@ -1,6 +1,7 @@
-import express from "express";
+import express, {Application} from "express";
 import path from "path";
 import http from "http";
+import createRoutes from "./createRouter";
 
 const port: number = 3000;
 
@@ -10,8 +11,12 @@ class App {
 
   constructor(port: number) {
     this.port = port;
-    const app = express();
-    app.use(express.static(path.join(__dirname, "../client")));
+    const app: Application = express();
+    app.use(express.static(path.join(__dirname, '../views')))
+    // app.use(express.static(path.join(__dirname, "../client")));
+    
+    createRoutes(app)
+    
     // In the webpack version of the boilerplate, it is not necessary
     // to add static references to the libs in node_modules if
     // you are using module specifiers in your client.ts imports.
